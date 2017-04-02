@@ -24,7 +24,6 @@ async componentDidMount(){
     loading:true
   });
   const data = await this.props.fetchMeetups();
-  debugger;
   this.setState({loading:false,meetups:data.meetups})
 }
 
@@ -40,10 +39,10 @@ async componentDidMount(){
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
-          {this.state.meetups.map((meetups,i) => {
-            <Text key={i}>meetups.title</Text>
-          })}
         </Text>
+        {this.state.meetups.map((item,i) => {
+          return  <Text style={styles.welcome} key={i}>{item.title}</Text>
+          })}
        </View>
     );
   }
