@@ -10,7 +10,9 @@ dbConfig();
 //middlewares
 
 middlewaresConfig(app);
-
+app.get('/',function (req, res) {
+  res.send('Meetups API is Running')
+});
 app.use('/api',[MeetupRoutes, GroupRoutes])
 
 const PORT = process.env.PORT || 3000
