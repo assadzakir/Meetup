@@ -8,6 +8,17 @@ import styles from './style';
 const meetupApi = new MeetupApi();
 
 class homeScreen extends Component {
+
+    static navigationOptions = {
+    tabBar: {
+    icon: () => (
+        <Image
+          source={require('./home.png')}
+          style={[styles.tabIcon, {tintColor: 'black'}]}
+        />
+  )}
+  }
+  
     static defaultProps = {
         meetupApi
     }
@@ -22,7 +33,6 @@ class homeScreen extends Component {
         const meetups = await this.props.meetupApi.fetchGroupMeetups();
         this.setState({ loading: false, meetups });
     }
-
 
     render() {
         if (this.state.loading) {
