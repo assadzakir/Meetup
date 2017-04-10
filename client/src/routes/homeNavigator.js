@@ -7,4 +7,16 @@ export default TabNavigator({
     Home: { screen: HomeScreen},
     Notification: { screen: NotificationScreen},
     Profile: { screen: ProfileScreen}
+},{
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarPosition: 'bottom',
+    tabBarOptions:{
+        showLabel:true,
+        showIcon: false,
+        inactiveTintColor:'white',
+        pressColor:'red',
+        indicatorStyle: {backgroundColor:'red'},
+        style:{backgroundColor:'black'}
+    }
 });

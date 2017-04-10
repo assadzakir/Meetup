@@ -9,15 +9,7 @@ const meetupApi = new MeetupApi();
 
 class homeScreen extends Component {
 
-    static navigationOptions = {
-    tabBar: {
-    icon: () => (
-        <Image
-          source={require('./home.png')}
-          style={[styles.tabIcon, {tintColor: 'black'}]}
-        />
-  )}
-  }
+
   
     static defaultProps = {
         meetupApi
