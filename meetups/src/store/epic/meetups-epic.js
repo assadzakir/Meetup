@@ -8,7 +8,7 @@ const meetupApi = new MeetupApi();
 export const fetchMeetups = action$ =>
     action$.ofType(FETCH_MY_MEETUPS)
         .switchMap(() => {
-            return Observable.fromPromise(MeetupApi.fetchGroupMeetups())
+            return Observable.fromPromise(meetupApi.fetchGroupMeetups())
                 .map(u => {
                     console.log(u);
                     return {

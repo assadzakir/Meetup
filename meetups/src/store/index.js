@@ -30,6 +30,10 @@ let store = createStore(
     enhancers(applyMiddleware(...middlewares)
     ));
 
+    store.dispatch({
+    type:"FETCH_MY_MEETUPS"
+});
+
 store.subscribe(() => {
     console.log(store.getState())
 
