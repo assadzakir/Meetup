@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator,TouchableOpacity } from 'react-native';
 import loadingScreen from '../../shared';
 import MeetupList from '../../components/meetupList/meetupList';
 import Colors from '../../../constants/colors';
@@ -8,20 +8,33 @@ import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import styles from './style';
 
 class homeScreen extends Component {
-    static navigationOptions = {
-        header: {
-            style: { backgroundColor: Colors.redColor },
-        },
-        tabBar: {
-            icon: ({ tintColor }) => (
-                <FontAwesome
-                    name="home"
-                    size={25}
-                    color={tintColor}
-                />
-            ),
-        },
-    }
+     static navigationOptions = {
+    header: ({ navigate }) => {
+      const style = { backgroundColor: Colors.redColor };
+
+      const right = (
+        <TouchableOpacity style={styles.iconAdd} onPress={() => navigate('createMeetup')}>
+          <MaterialIcons
+            name="add-circle"
+            size={30}
+            color="#fff"
+          />
+        </TouchableOpacity>
+      );
+
+      return { style, right };
+    },
+    tabBar: {
+      icon: ({ tintColor }) => (
+        <FontAwesome
+          name="home"
+          size={25}
+          color={tintColor}
+        />
+      ),
+    },
+  }
+
 
     componentDidMount() {
         this.props.fetchGroupMeetups()

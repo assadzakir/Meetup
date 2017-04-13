@@ -13,7 +13,12 @@ const styles = EStyleSheet.create({
     },
     bottomContainer: {
         flex: 1.5,
-    }
+    },
+
+    iconAdd: {
+        marginTop: '3%',
+        marginRight: '3%',
+    },
 
 
 
