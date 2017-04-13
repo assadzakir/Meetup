@@ -1,8 +1,8 @@
-import {Observable} from "rxjs";
-import {ActionsObservable} from "redux-observable";
-export const FETCH_MY_MEETUPS = 'FETCH_MY_MEETUPS';
-
+import { Observable} from "rxjs";
+import { ActionsObservable } from "redux-observable";
 import { MeetupApi } from '../../../constants/api';
+
+export const FETCH_MY_MEETUPS = 'FETCH_MY_MEETUPS';
 const meetupApi = new MeetupApi();
 
 export const fetchMeetups = action$ =>
@@ -16,5 +16,5 @@ export const fetchMeetups = action$ =>
                         payload: u
                     }
                 });
-            }
+        }
         );

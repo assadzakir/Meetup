@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { View, Text, ActivityIndicator } from 'react-native';
-import { MeetupApi } from '../../../constants/api';
 import loadingScreen from '../../shared';
 import MeetupList from '../../components/meetupList/meetupList';
 import Colors from '../../../constants/colors';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import styles from './style';
-
-const meetupApi = new MeetupApi();
 
 class homeScreen extends Component {
     static navigationOptions = {
@@ -25,24 +23,19 @@ class homeScreen extends Component {
         },
     }
 
-
-    static defaultProps = {
-        meetupApi
-    }
-
-    state = {
-        loading: false,
-        meetups: []
-    }
-
-    async componentDidMount() {
-        this.setState({ loading: true });
-        const meetups = await this.props.meetupApi.fetchGroupMeetups();
-        this.setState({ loading: false, meetups });
+    componentDidMount() {
+        this.props.fetchGroupMeetups()
     }
 
     render() {
-        if (this.state.loading) {
+        const {
+            meetups: {
+                isFetched,
+            data,
+            error
+            }
+        } = this.props;
+        if (!isFetched) {
             return (
                 <View style={styles.root}>
                     <ActivityIndicator
@@ -50,6 +43,12 @@ class homeScreen extends Component {
                     />
                 </View>
             )
+        } else if (error.on) {
+            return (
+                <View>
+                    <Text>{error.message}</Text>
+                </View>
+            );
         }
         return (
             <View style={styles.root}>
@@ -57,11 +56,23 @@ class homeScreen extends Component {
                     <Text>homeScreen</Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <MeetupList meetups={this.state.meetups} />
+                    <MeetupList meetups={data} />
                 </View>
             </View>
         );
     }
 }
 
-export default homeScreen;
+const mapStateToProps = (state) => {
+    return { meetups: state.meetupReducer.myMeetups };
+};
+
+const mapDispatchToProps = (d) => {
+    return {
+        fetchGroupMeetups: () => d({
+            type: "FETCH_MY_MEETUPS"
+        })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(homeScreen);

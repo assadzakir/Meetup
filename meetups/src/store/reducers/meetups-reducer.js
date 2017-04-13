@@ -34,7 +34,7 @@ export const fetchMeetups = (state = INITIAL_STATE, action) => {
           isFetched: true,
           error: {
             on: true,
-            message: 'Error when fetching my meetups',
+            message: action.payload,
           },
         },
       };

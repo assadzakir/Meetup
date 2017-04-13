@@ -5,7 +5,7 @@ import * as meetupEpics from './epic/meetups-epic'
 import * as meetupReducer from './reducers/meetups-reducer'
 
 export const rootReducer = combineReducers({
-    fetchMeetups: meetupReducer.fetchMeetups
+    meetupReducer: meetupReducer.fetchMeetups
 });
 
 const rootEpic = combineEpics(
@@ -29,10 +29,6 @@ let store = createStore(
     undefined,
     enhancers(applyMiddleware(...middlewares)
     ));
-
-    store.dispatch({
-    type:"FETCH_MY_MEETUPS"
-});
 
 store.subscribe(() => {
     console.log(store.getState())
