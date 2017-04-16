@@ -1,15 +1,21 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { createLogger } from 'redux-logger';
-import * as meetupEpics from './epic/meetups-epic'
-import * as meetupReducer from './reducers/meetups-reducer'
+import { reducer as formReducer } from 'redux-form';
+import * as meetupEpics from './epic/meetups-epic';
+import * as createMeetupEpics from './epic/create-meetup-epic';
+import * as meetupReducer from './reducers/meetups-reducer';
+import * as createMeetupReducer from './reducers/createMeetup-reducer'
 
 export const rootReducer = combineReducers({
-    meetupReducer: meetupReducer.fetchMeetups
+    meetupReducer: meetupReducer.fetchMeetups,
+    createMeetupReducer: createMeetupReducer.createMeetup,
+    form: formReducer
 });
 
 const rootEpic = combineEpics(
-    meetupEpics.fetchMeetups
+    meetupEpics.fetchMeetups,
+    createMeetupEpics.createMeetups
 );
 
 const epicMiddleware = createEpicMiddleware(rootEpic);

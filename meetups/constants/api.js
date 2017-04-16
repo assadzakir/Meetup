@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {store} from '../src/store'
 axios.defaults.baseURL = 'https://api-meetups.herokuapp.com/api';
 const fakeGroupId = '58ea7cdcf1564e00118e2ea7'
 
@@ -13,6 +14,22 @@ class MeetupApi {
             return data.meetups;
         } catch (e) {
             console.log(e);
+            //   store.dispatch({
+            //    type:"FETCH_MY_MEETUPS_REJECTED"
+            // })
+        }
+    }
+    async createGroupMeetups(args) {
+        try {
+            const res = await axios.post(`${this.path}/new`, { ...args });
+            alert('Sucessfully Created Meetup')
+            console.log(res);
+            return res;
+        } catch (e) {
+             console.log(e);
+            // store.dispatch({
+            //    type:"CREATE_MEETUP_ERROR"
+            // })
         }
     }
 }

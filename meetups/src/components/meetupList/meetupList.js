@@ -16,6 +16,11 @@ const MeetupsList = ({ meetups }) => (
                 {meetup.title}
               </Text>
             </View>
+            <View style={styles.meetupCardTopContainer}>
+              <Text style={styles.meetupCardTitle}>
+                {meetup.description}
+              </Text>
+            </View>
 
             <View style={styles.meetupCardBottomContainer}>
               <Text style={styles.meetupCardMetaName}>
