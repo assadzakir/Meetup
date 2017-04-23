@@ -6,11 +6,13 @@ import * as meetupEpics from './epic/meetups-epic';
 import * as createMeetupEpics from './epic/create-meetup-epic';
 import * as meetupReducer from './reducers/meetups-reducer';
 import * as createMeetupReducer from './reducers/createMeetup-reducer'
+import * as loginReducer from './reducers/login_reducer'
 
 export const rootReducer = combineReducers({
     meetupReducer: meetupReducer.fetchMeetups,
     createMeetupReducer: createMeetupReducer.createMeetup,
-    form: formReducer
+    form: formReducer,
+    loginReducer:loginReducer.login
 });
 
 const rootEpic = combineEpics(

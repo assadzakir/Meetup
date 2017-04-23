@@ -13,7 +13,7 @@ class MeetupApi {
             const { data } = await axios.get(this.path);
             return data.meetups;
         } catch (e) {
-            console.log(e);
+            alert(e);
             //   store.dispatch({
             //    type:"FETCH_MY_MEETUPS_REJECTED"
             // })
@@ -26,7 +26,7 @@ class MeetupApi {
             console.log(res);
             return res;
         } catch (e) {
-             console.log(e);
+              alert(e);
             // store.dispatch({
             //    type:"CREATE_MEETUP_ERROR"
             // })
