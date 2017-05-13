@@ -1,37 +1,35 @@
 import Group from './model';
 import { Meetup } from '../meetups';
 
-export const createGroup = async (req,res) => {
-
-const {
+export const createGroup = async (req, res) => {
+  const {
   name,
   description,
-  category
 } = req.body;
 
-if(!name){
-  return res.status(400).json({error: true, message: 'Name must be provided! ' });
-} else if (typeof name != 'string'){
-  return res.status(400).json({error: true, message: 'Name must be in string! ' });
-}else if (name.length < 5){
-  return res.status(400).json({error: true, message: 'Name must have 5 character long!' });
-}
-if(!description){
-  return res.status(400).json({error: true, message: 'Description must be provided! ' });
-} else if (typeof description != 'string'){
-  return res.status(400).json({error: true, message: 'Description must be in string! ' });
-}else if (description.length < 10){
-  return res.status(400).json({error: true, message: 'Description must have 10 character long!' });
-}
+  if (!name) {
+    return res.status(400).json({ error: true, message: 'Name must be provided! ' });
+  } else if (typeof name !== 'string') {
+    return res.status(400).json({ error: true, message: 'Name must be in string! ' });
+  } else if (name.length < 5) {
+    return res.status(400).json({ error: true, message: 'Name must have 5 character long!' });
+  }
+  if (!description) {
+    return res.status(400).json({ error: true, message: 'Description must be provided! ' });
+  } else if (typeof description !== 'string') {
+    return res.status(400).json({ error: true, message: 'Description must be in string! ' });
+  } else if (description.length < 10) {
+    return res.status(400).json({ error: true, message: 'Description must have 10 character long!' });
+  }
 
-const group = new Group({name,description});
+  const group = new Group({ name, description });
 
-try{
- return res.status(201).json({error: false, group: await group.save() });
-}catch(e){
- return res.status(400).json({error: true, message: 'Error when created Group' });
-}
-}
+  try {
+    return res.status(201).json({ error: false, group: await group.save() });
+  } catch (e) {
+    return res.status(400).json({ error: true, message: 'Error when created Group' });
+  }
+};
 export const createGroupMeetup = async (req, res) => {
   const { title, description } = req.body;
   const { groupId } = req.params;
@@ -51,7 +49,7 @@ export const createGroupMeetup = async (req, res) => {
   } else if (description.length < 10) {
     return res.status(400).json({
       error: true,
-      message: 'Description must have 10 characters long!'
+      message: 'Description must have 10 characters long!',
     });
   }
 
@@ -85,7 +83,7 @@ export const getGroupMeetups = async (req, res) => {
   try {
     return res.status(200).json({
       error: false,
-      meetups: await Meetup.find({ group: groupId }).populate('group', 'name')
+      meetups: await Meetup.find({ group: groupId }).populate('group', 'name'),
     });
   } catch (e) {
     return res.status(400).json({ error: true, message: 'Cannot fetch meetup' });
