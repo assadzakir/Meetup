@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, Alert } from 'react-native';
-import { Facebook } from 'expo';
+import { Facebook, Google } from 'expo';
 import Colors from '../../../constants/colors';
 import fbConfig from '../../../constants/fbConfig';
+import googleConfig from '../../../constants/googleConfig';
 import styled from 'styled-components/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './style';
@@ -64,6 +65,26 @@ class LoginScreen extends Component {
         }
     }
 
+    async _loginWithGoogle() {
+        try {
+            const result = await Google.logInAsync({
+                androidClientId: googleConfig.CLIENT_ID_ANDROID,
+                scopes: ['profile', 'email'],
+            });
+
+            if (result.type === 'success') {
+                Alert.alert(
+                    'logged with google!',
+                    `${result.accessToken}`
+                ) ;
+            } else {
+                return { cancelled: true };
+            }
+        } catch (e) {
+            return { error: true };
+        }
+    }
+
     render() {
         return (
             <FlexContainer>
@@ -86,6 +107,7 @@ class LoginScreen extends Component {
                     <BottomButtonWrapper>
                         <Button
                             color="#db3236"
+                            onPress={() => this._onLoginPress('google')}
                         >
                             <Text style={styles.buttonAuth}>Sign with Google</Text>
                             <MaterialCommunityIcons name='google' size={30}
