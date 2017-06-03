@@ -1,9 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
-import * as meetupEpics from './epic/meetups-epic';
-import * as createMeetupEpics from './epic/create-meetup-epic';
 import * as meetupReducer from './reducers/meetups-reducer';
 import * as createMeetupReducer from './reducers/createMeetup-reducer'
 import * as loginReducer from './reducers/login_reducer'
@@ -15,15 +13,8 @@ export const rootReducer = combineReducers({
     loginReducer:loginReducer.login
 });
 
-const rootEpic = combineEpics(
-    meetupEpics.fetchMeetups,
-    createMeetupEpics.createMeetups
-);
-
-const epicMiddleware = createEpicMiddleware(rootEpic);
-
 const middlewares = [
-    epicMiddleware
+    thunk
 ];
 
 if (__DEV__) { // eslint-disable-line

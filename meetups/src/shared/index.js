@@ -1,5 +1,2 @@
-import loadingScreen from './loading';
+export * from './loading';
 
-export {
-    loadingScreen
-}

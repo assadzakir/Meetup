@@ -1,8 +1,3 @@
-// import {
-//   CREATE_MEETUP,
-//   CREATE_MEETUP_ERROR,
-//   CREATE_MEETUP_SUCCESS,
-// } from '../actions';
 export const CREATE_MEETUP = 'CREATE_MEETUP';
 export const CREATE_MEETUP_SUCCESS = 'CREATE_MEETUP_SUCCESS';
 export const CREATE_MEETUP_ERROR = 'CREATE_MEETUP_ERROR';

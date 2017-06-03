@@ -7,4 +7,4 @@ const prodConfig = {
   JWT_SECRET: 'qpoweirwierqpoweirqpowie',
 };
 
-export default devConfig;
+export default prodConfig;

@@ -5,8 +5,11 @@ import Colors from '../../../constants/colors';
 import fbConfig from '../../../constants/fbConfig';
 import googleConfig from '../../../constants/googleConfig';
 import styled from 'styled-components/native';
+import { connect } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './style';
+import { LoadingScreen } from '../../shared/loading';
+import { login } from '../../store/actions/login-actions';
 
 
 
@@ -55,13 +58,9 @@ class LoginScreen extends Component {
             });
 
         if (type === 'success') {
-            // Get the user's name using Facebook's Graph API
-            const response = await fetch(
-                `https://graph.facebook.com/me?access_token=${token}`);
-            Alert.alert(
-                'Logged in!',
-                `Hi ${(await response.json()).name}!`,
-            );
+            this.props.login(token, 'facebook');
+        } else {
+            throw new Error('Something wrong with facebook auth!');
         }
     }
 
@@ -73,10 +72,7 @@ class LoginScreen extends Component {
             });
 
             if (result.type === 'success') {
-                Alert.alert(
-                    'logged with google!',
-                    `${result.accessToken}`
-                ) ;
+                this.props.login(result.accessToken, 'google');
             } else {
                 return { cancelled: true };
             }
@@ -86,6 +82,9 @@ class LoginScreen extends Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return <LoadingScreen color={Colors.redColor} />;
+        }
         return (
             <FlexContainer>
                 <FlexContainer>
@@ -127,4 +126,6 @@ class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen;
+export default connect(state => ({
+    isLoading: state.loginReducer.isLoading,
+}), { login })(LoginScreen);
