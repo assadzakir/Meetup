@@ -5,12 +5,15 @@ import { reducer as formReducer } from 'redux-form';
 import * as meetupReducer from './reducers/meetups-reducer';
 import * as createMeetupReducer from './reducers/createMeetup-reducer'
 import * as loginReducer from './reducers/login_reducer'
+import  navigation from './reducers/navigationReducer'
+import { autoRehydrate } from 'redux-persist'
 
 export const rootReducer = combineReducers({
     meetupReducer: meetupReducer.fetchMeetups,
     createMeetupReducer: createMeetupReducer.createMeetup,
     form: formReducer,
-    loginReducer:loginReducer.login
+    loginReducer: loginReducer.login,
+    navigation
 });
 
 const middlewares = [
@@ -21,12 +24,10 @@ if (__DEV__) { // eslint-disable-line
     middlewares.push(createLogger());
 }
 
-const enhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 let store = createStore(
     rootReducer,
     undefined,
-    enhancers(applyMiddleware(...middlewares)
+    compose(applyMiddleware(...middlewares),autoRehydrate()
     ));
 
 store.subscribe(() => {

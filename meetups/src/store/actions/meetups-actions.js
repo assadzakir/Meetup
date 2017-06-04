@@ -8,10 +8,20 @@ export const CREATE_MEETUP_ERROR = 'CREATE_MEETUP_ERROR';
 
 export const FETCH_MY_MEETUPS = 'FETCH_MY_MEETUPS';
 
-export const fetchMyMeetups = () => ({
-  type: FETCH_MY_MEETUPS,
-  payload: meetupApi.fetchGroupMeetups(),
-});
+// export const fetchMyMeetups = () => ({
+//   type: FETCH_MY_MEETUPS,
+//   payload: meetupApi.fetchGroupMeetups(),
+// });
+
+export const fetchMyMeetups = () => async dispatch => {
+  dispatch({ type: `${FETCH_MY_MEETUPS}_PENDING` });
+  try {
+    const meetups = await meetupApi.fetchGroupMeetups();
+    return dispatch({ type: `${FETCH_MY_MEETUPS}_FULFILLED`, payload: meetups});
+  } catch (e) {
+    return dispatch({ type: `${FETCH_MY_MEETUPS}_REJECTED` });
+  }
+};
 
 export const createMeetup = args => async dispatch => {
   dispatch({ type: CREATE_MEETUP });

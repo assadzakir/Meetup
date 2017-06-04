@@ -1,38 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { View, Text, ActivityIndicator,TouchableOpacity } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import Colors from '../../../constants/colors';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-
-import  CreateMeetupForm  from '../../components/meetupForm/meetupForm';
+import CreateMeetupForm from '../../components/meetupForm/meetupForm';
 import styles from './style';
 
 class createMeetup extends Component {
-
-    static navigationOptions = {
-    title: 'Create a new Meetup',
-    header: ({ goBack }) => {
-      const style = { backgroundColor: Colors.redColor };
-
-      const titleStyle = { color: Colors.whiteColor };
-
-      const left = (
-        <TouchableOpacity style={styles.iconClose} onPress={() => goBack()}>
-          <MaterialIcons
-            name="close"
-            size={30}
-            color="#fff"
-          />
-        </TouchableOpacity>
-      );
-
-      return { style, titleStyle };
-    },
-  }
-
-    state = {
+  state = {
     isDateTimePickerVisible: false,
     date: moment(),
   }
@@ -66,10 +41,9 @@ class createMeetup extends Component {
   _createMeetup = async values => {
     await this.props.createMeetup(values);
     await this.props.fetchGroupMeetups();
-    // this.props.navigation.goBack();
   }
 
-render() {
+  render() {
     const {
       meetup,
     } = this.props;
@@ -77,8 +51,8 @@ render() {
       return (
         <View style={styles.root}>
           <ActivityIndicator
-                        size="large"
-                    />
+            size="large"
+          />
         </View>
       );
     } else if (meetup.error.on) {
@@ -106,19 +80,19 @@ render() {
   }
 }
 const mapStateToProps = (state) => {
-    return { meetup: state.createMeetupReducer };
+  return { meetup: state.createMeetupReducer };
 };
 
 const mapDispatchToProps = (d) => {
-    return {
-        createMeetup: (m) => d({
-            type: "CREATE_MEETUP",
-            payload:m
-        }),
-        fetchGroupMeetups: () => d({
-            type: "FETCH_MY_MEETUPS"
-        })
-    }
+  return {
+    createMeetup: (m) => d({
+      type: "CREATE_MEETUP",
+      payload: m
+    }),
+    fetchGroupMeetups: () => d({
+      type: "FETCH_MY_MEETUPS"
+    })
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(createMeetup);

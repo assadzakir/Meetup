@@ -77,7 +77,7 @@ class LoginScreen extends Component {
                 return { cancelled: true };
             }
         } catch (e) {
-            return { error: true };
+           throw e
         }
     }
 

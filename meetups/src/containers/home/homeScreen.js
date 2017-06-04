@@ -1,43 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { View, Text, ActivityIndicator,TouchableOpacity } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import loadingScreen from '../../shared';
 import MeetupList from '../../components/meetupList/meetupList';
-import Colors from '../../../constants/colors';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import {fetchMyMeetups} from '../../store/actions/meetups-actions';
 import styles from './style';
 
 class homeScreen extends Component {
-     static navigationOptions = {
-    header: ({ navigate }) => {
-      const style = { backgroundColor: Colors.redColor };
-
-      const right = (
-        <TouchableOpacity style={styles.iconAdd} onPress={() => navigate('createMeetup')}>
-          <MaterialIcons
-            name="add-circle"
-            size={30}
-            color="#fff"
-          />
-        </TouchableOpacity>
-      );
-
-      return { style, right };
-    },
-    tabBar: {
-      icon: ({ tintColor }) => (
-        <FontAwesome
-          name="home"
-          size={25}
-          color={tintColor}
-        />
-      ),
-    },
-  }
-
 
     componentDidMount() {
-        this.props.fetchGroupMeetups()
+        this.props.fetchMyMeetups()
     }
 
     render() {
@@ -80,12 +52,4 @@ const mapStateToProps = (state) => {
     return { meetups: state.meetupReducer.myMeetups };
 };
 
-const mapDispatchToProps = (d) => {
-    return {
-        fetchGroupMeetups: () => d({
-            type: "FETCH_MY_MEETUPS"
-        })
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(homeScreen);
+export default connect(mapStateToProps, { fetchMyMeetups })(homeScreen);
