@@ -16,12 +16,14 @@
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.1",
+    "cors": "^2.8.4",
     "express": "^4.15.2",
     "jsonwebtoken": "^7.4.0",
     "mongoose": "^4.9.8",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1"
+    "passport-jwt": "^2.2.1",
+    "swagger-jsdoc": "^1.9.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
