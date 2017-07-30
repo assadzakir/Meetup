@@ -10,7 +10,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Meetup App API reference for developers',
   },
-  host: 'meetupsapi.herokuapp.com',
+  host: 'meetupapi.herokuapp.com',
   basePath: '/',
 };
 
